@@ -25,7 +25,7 @@
 Summary: Package that installs %scl
 Name: %scl_name
 Version: 2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+
 Source0: macros.additional.%{scl}
 Source1: README
@@ -38,7 +38,6 @@ BuildRequires: scl-utils-build
 Requires: %{scl_prefix}python
 Requires: %{scl_prefix}python-pip
 Requires: %{scl_prefix}python-setuptools
-Requires: %{scl_prefix}python-virtualenv
 %endif
 
 %description
@@ -139,6 +138,10 @@ install -m 644 %{scl_name}.7 %{buildroot}%{_mandir}/man7/%{scl_name}.7
 %{_root_sysconfdir}/rpm/macros.%{scl_name_base}-scldevel
 
 %changelog
+* Thu Jan 30 2020 Tomas Orsava <torsava@redhat.com> - 2.0-3
+- Modify package set
+- Resolves: rhbz#1671025
+
 * Wed Jan 29 2020 Tomas Orsava <torsava@redhat.com> - 2.0-2
 - Finished bootstrapping
 - Resolves: rhbz#1671025
