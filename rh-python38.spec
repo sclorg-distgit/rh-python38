@@ -8,8 +8,9 @@
 # - the names of binaries of Python 3 itself are both python{-debug,...} and python3{-debug,...}
 #   so both are usable in shebangs, the non-versioned binaries are preferred.
 # - the names of other binaries are NOT prefixed with 'python3-'.
-# - there are both macros in '3' variant and non-versioned variant, e.g. both %%{__python}
-#   and %%{__python3} are available
+
+# Bootstrap disables dependency on rh-python38-python-srpm-macros which aren't built yet
+%bcond_with bootstrap
 
 %global nfsmountable 1
 
@@ -24,7 +25,7 @@
 Summary: Package that installs %scl
 Name: %scl_name
 Version: 2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 Source0: macros.additional.%{scl}
 Source1: README
@@ -53,6 +54,9 @@ Package shipping essential scripts to work with %scl Software Collection.
 %package build
 Summary: Package shipping basic build configuration
 Requires: scl-utils-build
+%if %{without bootstrap}
+Requires: %{scl_prefix}python-srpm-macros
+%endif
 
 %description build
 Package shipping essential configuration macros to build %scl Software Collection.
@@ -135,6 +139,10 @@ install -m 644 %{scl_name}.7 %{buildroot}%{_mandir}/man7/%{scl_name}.7
 %{_root_sysconfdir}/rpm/macros.%{scl_name_base}-scldevel
 
 %changelog
+* Wed Jan 29 2020 Tomas Orsava <torsava@redhat.com> - 2.0-2
+- Finished bootstrapping
+- Resolves: rhbz#1671025
+
 * Mon Jan 06 2020 Tomas Orsava <torsava@redhat.com> - 2.0-1
 - Created the rh-python38 metapackage by importing and modifying rh-python36
-Resolves: rhbz#1671025
+- Resolves: rhbz#1671025

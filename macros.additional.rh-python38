@@ -8,11 +8,16 @@
 %global __python3 %@scl@__python3
 %global __python %@scl@__python3
 %global python3_sitelib %@scl@python3_sitelib
-%global python_sitelib %@scl@python3_sitelib
 %global python3_sitearch %@scl@python3_sitearch
-%global python_sitearch %@scl@python3_sitearch
 %global python3_version %@scl@python3_version
-%global python_version %@scl@python3_version
+%global python3_version_nodots %@scl@python3_version_nodots
+%global python3_platform %@scl@python3_platform
+%global py3dir %@scl@py3dir
+%global py3_build %@scl@py3_build
+%global py3_build_egg %@scl@py3_build_egg
+%global py3_build_wheel %@scl@py3_build_wheel
+%global py3_install %@scl@py3_install
+%global py3_install_egg %@scl@py3_install_egg
+%global py3_install_wheel() %%{expand:%{@scl@py3_install_wheel_start}%%{1}%{@scl@py3_install_wheel_end}}
 %global scl_no_vendor @scl@
 }
-
