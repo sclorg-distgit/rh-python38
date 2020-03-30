@@ -25,7 +25,7 @@
 Summary: Package that installs %scl
 Name: %scl_name
 Version: 2.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2+
 Source0: macros.additional.%{scl}
 Source1: README
@@ -100,7 +100,7 @@ sed -i "s/'/\\\\(aq/g" %{scl_name}.7
 %scl_install
 
 cat >> %{buildroot}%{_scl_scripts}/enable << EOF
-export PATH=%{_bindir}\${PATH:+:\${PATH}}
+export PATH=%{_exec_prefix}/local/bin:%{_bindir}\${PATH:+:\${PATH}}
 export LD_LIBRARY_PATH=%{_libdir}\${LD_LIBRARY_PATH:+:\${LD_LIBRARY_PATH}}
 export MANPATH=%{_mandir}:\$MANPATH
 export PKG_CONFIG_PATH=%{_libdir}/pkgconfig\${PKG_CONFIG_PATH:+:\${PKG_CONFIG_PATH}}
@@ -138,6 +138,10 @@ install -m 644 %{scl_name}.7 %{buildroot}%{_mandir}/man7/%{scl_name}.7
 %{_root_sysconfdir}/rpm/macros.%{scl_name_base}-scldevel
 
 %changelog
+* Thu Jan 30 2020 Tomas Orsava <torsava@redhat.com> - 2.0-4
+- Modify PATH to also look into /usr/local/bin
+- Resolves: rhbz#1671025
+
 * Thu Jan 30 2020 Tomas Orsava <torsava@redhat.com> - 2.0-3
 - Modify package set
 - Resolves: rhbz#1671025
